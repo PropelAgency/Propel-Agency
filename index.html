@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propel Agency</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #ffffff;
+            --secondary: #94a3b8;
+            --accent: #a204c6;
+            --card-bg: rgba(2, 8, 23, 0.7);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --radius: 0.75rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #020817;
+            background: linear-gradient(rgba(2, 8, 23, 0.9), rgba(2, 8, 23, 0.9)), url('site-bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+
+            color: var(--primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            padding: 0 2rem;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(2, 8, 23, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav ul li a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.2rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px 40px;
+            background: transparent;
+        }
+
+        .status-badge {
+            background: rgba(162, 4, 198, 0.15);
+            color: var(--accent);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(162, 4, 198, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-badge span {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero h1 span {
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background-color: #e2e8f0;
+        }
+
+        .btn-outline {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--primary);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+
+        /* --- Services Grid --- */
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--secondary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .service-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            background-color: rgba(2, 8, 23, 0.85);
+        }
+
+        .service-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-size: 1.1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .service-hook {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .service-details {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .card-link {
+            font-size: 0.85rem;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+
+        /* --- Footer --- */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 60px 20px 30px;
+            margin-top: 40px;
+            background: rgba(2, 8, 23, 0.9);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .footer-about h3, .footer-contact-info h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .footer-about p {
+            color: var(--secondary);
+            line-height: 1.7;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-btn-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            color: var(--secondary);
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .contact-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--primary);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .copyright {
+            color: var(--secondary);
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* --- Preloader --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #020817;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .loader {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #1e293b;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            header { padding: 0 1.5rem; }
+            
+            .mobile-menu-btn { display: block; }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(2, 8, 23, 0.98);
+                padding: 20px;
+                border-bottom: 1px solid var(--border-color);
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            nav ul.active { display: flex; }
+
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .footer-content { grid-template-columns: 1fr; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <a href="#hero">
+                <img src="logo.png" alt="Propel Agency">
+                <span class="logo-text">Propel Agency</span>
+            </a>
+        </div>
+        
+        <div class="mobile-menu-btn" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="#hero" onclick="toggleMenu()">Home</a></li>
+                <li><a href="#services" onclick="toggleMenu()">Services</a></li>
+                <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero" class="hero">
+        <div class="status-badge">
+            <span></span> Available for new projects
+        </div>
+        <h1>
+            <span>Elevate Your Brand</span><br>
+            With Digital Excellence
+        </h1>
+        <p>We craft data-driven marketing strategies and build stunning digital experiences to propel your business forward.</p>
+        
+        <div class="btn-group">
+            <a href="#services" class="btn btn-primary">View Services</a>
+            <a href="https://wa.me/201012594745" target="_blank" class="btn btn-outline"><i class="fab fa-whatsapp"></i> Chat Now</a>
+        </div>
+    </section>
+
+    <section id="services" class="section-container">
+        <div class="section-header">
+            <h2>Our Services</h2>
+            <p>Comprehensive solutions tailored for your growth.</p>
+        </div>
+        
+        <div class="services-grid">
+            
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-bullhorn"></i></div>
+                <h3>Social Media Marketing</h3>
+                <div class="service-hook">Turn followers into loyal customers.</div>
+                <div class="service-details">Strategies for Instagram, TikTok, Facebook, & X. Creative content & targeted ads.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+                <h3>Web Design & Dev</h3>
+                <div class="service-hook">Your digital storefront.</div>
+                <div class="service-details">Responsive, fast, and SEO-optimized websites built to convert visitors.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-search"></i></div>
+                <h3>SEO Optimization</h3>
+                <div class="service-hook">Dominate search results.</div>
+                <div class="service-details">Keyword research and on-page optimization to rank on Google's first page.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-mouse-pointer"></i></div>
+                <h3>PPC Advertising</h3>
+                <div class="service-hook">Pay only for results.</div>
+                <div class="service-details">High ROI campaigns on Google Ads & Meta Ads targeting the right audience.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-users"></i></div>
+                <h3>Influencer Marketing</h3>
+                <div class="service-hook">Authentic brand promotion.</div>
+                <div class="service-details">Collaborate with trusted voices in your niche to boost credibility.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-handshake"></i></div>
+                <h3>Affiliate Marketing</h3>
+                <div class="service-hook">Pay only for results.</div>
+                <div class="service-details">Build affiliate programs that turn partners into your salesforce.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-pen-nib"></i></div>
+                <h3>Branding</h3>
+                <div class="service-hook">Stories that stick.</div>
+                <div class="service-details">Logo creation, visual identity, and creative campaigns that stand out.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+
+             <div class="service-card">
+                <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3>Mobile Apps</h3>
+                <div class="service-hook">Apps customers love.</div>
+                <div class="service-details">Design and develop mobile apps that combine sleek design with seamless functionality.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-video"></i></div>
+                <h3>Video Marketing</h3>
+                <div class="service-hook">Engage & Inspire.</div>
+                <div class="service-details">Compelling video content strategies for TikTok, Reels and YouTube.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+
+             <div class="service-card">
+                <div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
+                <h3>E-commerce</h3>
+                <div class="service-hook">Turn clicks into customers.</div>
+                <div class="service-details">Boost online sales with targeted strategies and funnel optimization.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+
+             <div class="service-card">
+                <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Analytics</h3>
+                <div class="service-hook">Data-driven growth.</div>
+                <div class="service-details">Turn complex data into actionable strategies to optimize performance.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-lightbulb"></i></div>
+                <h3>Consulting</h3>
+                <div class="service-hook">Unlock massive growth.</div>
+                <div class="service-details">Expert guidance tailored to your business goals.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+
+             <div class="service-card">
+                <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+                <h3>Graphic Design</h3>
+                <div class="service-hook">Design that is remembered.</div>
+                <div class="service-details">Creative visuals, brochures, and packaging that make your brand stand out.</div>
+                <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>About Propel</h3>
+                <p>At Propel, we don’t just run marketing campaigns — we craft growth journeys. Our mission is to help businesses in the GCC and beyond reach their true potential by delivering smart, data-driven, and creative digital marketing solutions.</p>
+                <p><strong>Because at Propel, we don’t just market… we accelerate your business.</strong></p>
+            </div>
+
+            <div class="footer-contact-info">
+                <h3>Get In Touch</h3>
+                <div class="contact-btn-list">
+                    <a href="mailto:ssmahfrydfhmy@gmail.com" class="contact-btn"><i class="fas fa-envelope"></i><span>ssmahfrydfhmy@gmail.com</span></a>
+                    <a href="https://wa.me/201012594745" target="_blank" class="contact-btn"><i class="fab fa-whatsapp"></i><span>01012594745</span></a>
+                    <a href="https://instagram.com/propellagency" target="_blank" class="contact-btn"><i class="fab fa-instagram"></i><span>@propellagency</span></a>
+                    <a href="https://facebook.com/PropelAgency" target="_blank" class="contact-btn"><i class="fab fa-facebook-f"></i><span>Propel Agency</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 Propel Agency. All rights reserved.</div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
