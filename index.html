@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
+        /* المتغيرات */
         :root {
             --primary: #ffffff;
             --secondary: #94a3b8;
@@ -26,24 +27,22 @@
 
         body {
             background-color: #020817;
-            
             background: linear-gradient(rgba(2, 8, 23, 0.9), rgba(2, 8, 23, 0.9)), url('site-bg.png');
-            
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
-
             color: var(--primary);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
+        /* --- Header --- */
         header {
             padding: 0 5%;
             height: 60px;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* هذا سيوزع اللوجو يمين والزر يسار الآن */
             align-items: center;
             position: fixed;
             width: 100%;
@@ -72,6 +71,7 @@
             color: var(--primary);
         }
 
+        /* القائمة في وضع الكمبيوتر */
         nav ul {
             display: flex;
             gap: 2rem;
@@ -341,38 +341,40 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-
         /* ---------------------------------------------------- */
-        /* تعديلات الموبايل (Responsive Media Queries) */
+        /* تعديلات الموبايل - الحل النهائي لمكان الزر */
         /* ---------------------------------------------------- */
         @media (max-width: 768px) {
             
             .mobile-menu-btn { display: block; }
-            
-            nav ul {
-                display: none;
-                flex-direction: column;
-                position: absolute;
+
+            /* هذا هو الجزء الذي يحل المشكلة */
+            nav {
+                position: absolute; /* إخراج القائمة من حسابات الهيدر */
                 top: 60px;
                 left: 0;
                 width: 100%;
-                background-color: #020817;
+                z-index: 999;
+            }
+            
+            nav ul {
+                display: none; /* إخفاء الروابط */
+                flex-direction: column;
+                background-color: #020817; 
                 padding: 20px;
                 border-bottom: 1px solid var(--border-color);
                 text-align: center;
                 gap: 1.5rem;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+                position: static; /* إعادة الوضع للطبيعي داخل الـ nav */
             }
 
-            nav ul.active { display: flex; } 
+            nav ul.active { display: flex; }
 
             .hero h1 { font-size: 2.2rem; }
             .hero p { font-size: 1rem; padding: 0; }
-            
             .footer-content { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-            
             .contact-btn { justify-content: center; }
-            
             header { padding: 0 20px; }
         }
     </style>
@@ -425,110 +427,96 @@
             <h2>Our Services</h2>
             <p>Comprehensive solutions tailored for your growth.</p>
         </div>
-        
         <div class="services-grid">
-            
             <div class="service-card">
                 <div class="service-icon"><i class="fas fa-bullhorn"></i></div>
                 <h3>Social Media Marketing</h3>
                 <div class="service-hook">Turn followers into loyal customers.</div>
-                <div class="service-details">Strategies for Instagram, TikTok, Facebook, & X. Creative content & targeted ads.</div>
+                <div class="service-details">Strategies for Instagram, TikTok, Facebook, & X.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
-
             <div class="service-card">
                 <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
                 <h3>Web Design & Dev</h3>
                 <div class="service-hook">Your digital storefront.</div>
-                <div class="service-details">Responsive, fast, and SEO-optimized websites built to convert visitors.</div>
+                <div class="service-details">Responsive, fast, and SEO-optimized websites.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
-
             <div class="service-card">
                 <div class="service-icon"><i class="fas fa-search"></i></div>
                 <h3>SEO Optimization</h3>
                 <div class="service-hook">Dominate search results.</div>
-                <div class="service-details">Keyword research and on-page optimization to rank on Google's first page.</div>
+                <div class="service-details">Keyword research and on-page optimization.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
-
             <div class="service-card">
                 <div class="service-icon"><i class="fas fa-mouse-pointer"></i></div>
                 <h3>PPC Advertising</h3>
                 <div class="service-hook">Pay only for results.</div>
-                <div class="service-details">High ROI campaigns on Google Ads & Meta Ads targeting the right audience.</div>
+                <div class="service-details">High ROI campaigns on Google Ads & Meta Ads.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
-
             <div class="service-card">
                 <div class="service-icon"><i class="fas fa-users"></i></div>
                 <h3>Influencer Marketing</h3>
                 <div class="service-hook">Authentic brand promotion.</div>
-                <div class="service-details">Collaborate with trusted voices in your niche to boost credibility.</div>
+                <div class="service-details">Collaborate with trusted voices in your niche.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
-
             <div class="service-card">
                 <div class="service-icon"><i class="fas fa-handshake"></i></div>
                 <h3>Affiliate Marketing</h3>
                 <div class="service-hook">Pay only for results.</div>
-                <div class="service-details">Build affiliate programs that turn partners into your salesforce.</div>
+                <div class="service-details">Build affiliate programs.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
-
-            <div class="service-card">
+             <div class="service-card">
                 <div class="service-icon"><i class="fas fa-pen-nib"></i></div>
                 <h3>Branding</h3>
                 <div class="service-hook">Stories that stick.</div>
-                <div class="service-details">Logo creation, visual identity, and creative campaigns that stand out.</div>
+                <div class="service-details">Logo creation and visual identity.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
-
              <div class="service-card">
                 <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
                 <h3>Mobile Apps</h3>
                 <div class="service-hook">Apps customers love.</div>
-                <div class="service-details">Design and develop mobile apps that combine sleek design with seamless functionality.</div>
+                <div class="service-details">Design and develop mobile apps.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
-
             <div class="service-card">
                 <div class="service-icon"><i class="fas fa-video"></i></div>
                 <h3>Video Marketing</h3>
                 <div class="service-hook">Engage & Inspire.</div>
-                <div class="service-details">Compelling video content strategies for TikTok, Reels and YouTube.</div>
+                <div class="service-details">Compelling video content strategies.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
-
              <div class="service-card">
                 <div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
                 <h3>E-commerce</h3>
                 <div class="service-hook">Turn clicks into customers.</div>
-                <div class="service-details">Boost online sales with targeted strategies and funnel optimization.</div>
+                <div class="service-details">Boost online sales.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
-
              <div class="service-card">
                 <div class="service-icon"><i class="fas fa-chart-line"></i></div>
                 <h3>Analytics</h3>
                 <div class="service-hook">Data-driven growth.</div>
-                <div class="service-details">Turn complex data into actionable strategies to optimize performance.</div>
+                <div class="service-details">Turn complex data into actionable strategies.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
-
             <div class="service-card">
                 <div class="service-icon"><i class="fas fa-lightbulb"></i></div>
                 <h3>Consulting</h3>
                 <div class="service-hook">Unlock massive growth.</div>
-                <div class="service-details">Expert guidance tailored to your business goals.</div>
+                <div class="service-details">Expert guidance tailored to your goals.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
-
              <div class="service-card">
                 <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
                 <h3>Graphic Design</h3>
                 <div class="service-hook">Design that is remembered.</div>
-                <div class="service-details">Creative visuals, brochures, and packaging that make your brand stand out.</div>
+                <div class="service-details">Creative visuals and brochures.</div>
                 <div class="card-footer"><a href="#contact" class="card-link">Contact Us <i class="fas fa-arrow-right"></i></a></div>
             </div>
         </div>
@@ -541,7 +529,6 @@
                 <p>At Propel, we don’t just run marketing campaigns — we craft growth journeys. Our mission is to help businesses in the GCC and beyond reach their true potential by delivering smart, data-driven, and creative digital marketing solutions.</p>
                 <p><strong>Because at Propel, we don’t just market… we accelerate your business.</strong></p>
             </div>
-
             <div class="footer-contact-info">
                 <h3>Get In Touch</h3>
                 <div class="contact-btn-list">
