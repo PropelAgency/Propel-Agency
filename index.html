@@ -8,14 +8,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* المتغيرات */
         :root {
+            --bg-main: #020817;
             --primary: #ffffff;
             --secondary: #94a3b8;
             --accent: #a204c6;
             --card-bg: rgba(2, 8, 23, 0.7);
+            --header-bg: rgba(2, 8, 23, 0.9);
             --border-color: rgba(255, 255, 255, 0.1);
             --radius: 0.75rem;
+            --hero-overlay: rgba(2, 8, 23, 0.9);
+            --btn-text: #000;
+        }
+
+        body.light-mode {
+            --bg-main: #f8fafc;
+            --primary: #0f172a;
+            --secondary: #475569;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --header-bg: rgba(255, 255, 255, 0.9);
+            --border-color: #e2e8f0;
+            --hero-overlay: rgba(255, 255, 255, 0.85);
+            --btn-text: #fff;
         }
 
         * {
@@ -23,11 +37,12 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
         body {
-            background-color: #020817;
-            background: linear-gradient(rgba(2, 8, 23, 0.9), rgba(2, 8, 23, 0.9)), url('site-bg.png');
+            background-color: var(--bg-main);
+            background: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('site-bg.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -42,15 +57,21 @@
             padding: 0 5%;
             height: 60px;
             display: flex;
-            justify-content: space-between; /* هذا سيوزع اللوجو يمين والزر يسار الآن */
+            justify-content: space-between;
             align-items: center;
             position: fixed;
             width: 100%;
             top: 0;
-            background: rgba(2, 8, 23, 0.9);
+            background: var(--header-bg);
             backdrop-filter: blur(12px);
             z-index: 1000;
             border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .logo a {
@@ -71,7 +92,29 @@
             color: var(--primary);
         }
 
-        /* القائمة في وضع الكمبيوتر */
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--primary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-right: 15px;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(162, 4, 198, 0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
         nav ul {
             display: flex;
             gap: 2rem;
@@ -140,22 +183,26 @@
             line-height: 1.1;
             margin-bottom: 20px;
             letter-spacing: -1px;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5); 
             width: 100%;
+            color: var(--primary);
+        }
+
+        body.light-mode .hero h1 {
+            text-shadow: none;
         }
 
         .hero h1 span {
-            background: linear-gradient(to right, #fff, #94a3b8);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero p {
             font-size: 1.1rem;
-            color: #cbd5e1;
+            color: var(--secondary);
             max-width: 600px;
             margin-bottom: 30px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
             padding: 0 10px;
         }
 
@@ -183,14 +230,22 @@
 
         .btn-primary {
             background-color: var(--primary);
-            color: #000;
+            color: var(--bg-main);
+        }
+        
+        body.light-mode .btn-primary {
+             background-color: #020817;
+             color: #fff;
         }
 
         .btn-outline {
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--border-color);
             color: var(--primary);
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(4px);
+            background: transparent;
+        }
+        
+        body.light-mode .btn-outline {
+            border-color: #020817;
         }
 
         /* --- Services Grid --- */
@@ -209,7 +264,10 @@
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 10px;
+            color: var(--primary);
         }
+
+        .section-header p { color: var(--secondary); }
 
         .services-grid {
             display: grid;
@@ -229,18 +287,28 @@
             backdrop-filter: blur(5px);
         }
 
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
         .service-icon {
             width: 45px;
             height: 45px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(162, 4, 198, 0.1);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 15px;
-            color: var(--primary);
+            color: var(--primary); 
             font-size: 1.1rem;
             border: 1px solid var(--border-color);
+        }
+        
+        body.light-mode .service-icon {
+            color: var(--accent);
+            border-color: var(--accent);
         }
 
         .service-card h3 {
@@ -284,7 +352,7 @@
             border-top: 1px solid var(--border-color);
             padding: 60px 20px 30px;
             margin-top: 40px;
-            background: rgba(2, 8, 23, 0.9);
+            background: var(--header-bg);
         }
 
         .footer-content {
@@ -295,17 +363,26 @@
             gap: 50px;
         }
 
+        .footer-about h3, .footer-contact-info h3 {
+            color: var(--primary);
+        }
+
         .contact-btn {
             display: flex;
             align-items: center;
             gap: 12px;
-            background: rgba(255, 255, 255, 0.03);
+            background: transparent;
             padding: 10px 16px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             color: var(--secondary);
             text-decoration: none;
             margin-bottom: 10px;
+        }
+        
+        .contact-btn:hover {
+            border-color: var(--accent);
+            color: var(--primary);
         }
 
         .copyright {
@@ -319,38 +396,24 @@
 
         /* --- Preloader --- */
         #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #020817;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-main); z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
             transition: opacity 0.5s ease;
         }
         .loader {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #1e293b;
-            border-top: 3px solid var(--primary);
-            border-radius: 50%;
+            width: 40px; height: 40px; border: 3px solid var(--border-color);
+            border-top: 3px solid var(--accent); border-radius: 50%;
             animation: spin 1s linear infinite;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* ---------------------------------------------------- */
-        /* تعديلات الموبايل - الحل النهائي لمكان الزر */
-        /* ---------------------------------------------------- */
+
         @media (max-width: 768px) {
-            
             .mobile-menu-btn { display: block; }
 
-            /* هذا هو الجزء الذي يحل المشكلة */
             nav {
-                position: absolute; /* إخراج القائمة من حسابات الهيدر */
+                position: absolute;
                 top: 60px;
                 left: 0;
                 width: 100%;
@@ -358,15 +421,14 @@
             }
             
             nav ul {
-                display: none; /* إخفاء الروابط */
+                display: none;
                 flex-direction: column;
-                background-color: #020817; 
+                background-color: var(--bg-main);
                 padding: 20px;
                 border-bottom: 1px solid var(--border-color);
                 text-align: center;
                 gap: 1.5rem;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-                position: static; /* إعادة الوضع للطبيعي داخل الـ nav */
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             }
 
             nav ul.active { display: flex; }
@@ -393,17 +455,22 @@
             </a>
         </div>
         
-        <div class="mobile-menu-btn" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </div>
+        <div class="header-right">
+            <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-sun"></i> </button>
 
-        <nav>
-            <ul id="nav-menu">
-                <li><a href="#hero" onclick="toggleMenu()">Home</a></li>
-                <li><a href="#services" onclick="toggleMenu()">Services</a></li>
-                <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-            </ul>
-        </nav>
+            <div class="mobile-menu-btn" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#hero" onclick="toggleMenu()">Home</a></li>
+                    <li><a href="#services" onclick="toggleMenu()">Services</a></li>
+                    <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <section id="hero" class="hero">
@@ -547,6 +614,22 @@
             const menu = document.getElementById('nav-menu');
             menu.classList.toggle('active');
         }
+
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = themeBtn.querySelector('i');
+        const body = document.body;
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
 
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
